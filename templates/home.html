@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AddressBook</title>
+	<style type="text/css">
+	.align_item{
+		text-align: center;
+	}
+	table {
+	  font-family: arial, sans-serif;
+	  border-collapse: collapse;
+	  width: 100%;
+	}
+
+	td, th {
+	  border: 1px solid #dddddd;
+	  text-align: left;
+	  padding: 8px;
+	}
+
+	tr:nth-child(even) {
+	  background-color: #dddddd;
+	}
+	</style>
+</head>
+
+<body>
+<a href="/"><strong>Home</strong></a>
+<h1 class="align_item">Welcome to Address Book</h1>
+<p class="align_item">You can search using name and address</p>
+
+<div class="align_item">
+	<form method="GET" action="/">
+		<input style="width: 25%; margin: auto;" type="text" name="address" placeholder="Type here" minlength="3" maxlength="50" required>
+		<input type="submit" name="" value="Submit">
+	</form>
+</div>
+
+{% if request.GET.address and not all_addresses %}
+<div style="margin-top: 5px;">
+	<p class="align_item">No matching result for {{request.GET.address}}</p>
+</div>
+{% endif %}
+
+{% if all_addresses %}
+<div style="margin-top: 5px;">
+	<p class="align_item">Result for {{request.GET.address}}</p>
+ <table>
+  <tr>
+    <th>Name</th>
+    <th>Street Address</th>
+    <th>City</th>
+    <th>State</th>
+  </tr>
+  {% for address in all_addresses %}
+  <tr>
+    <td>{{address.0}} {{address.1}}</td>
+    <td>{{address.2}}</td>
+    <td>{{address.3}}</td>
+    <td>{{address.4}}</td>
+  </tr>
+  {% endfor %}
+</table>
+</div>
+{% endif %}
+
+</body>
+</html>
